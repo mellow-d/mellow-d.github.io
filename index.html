@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anjuman — Data Analyst</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&family=Public+Sans:wght@400;500&display=swap">
+<style>
+:root{--bg:#f1f4f1;--ink:#12231d;--mute:#53645d;--line:#c8d2cc;--acc:#0b7a5c;--card:#f8faf8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1814;--ink:#e5eee9;--mute:#97aaa2;--line:#24352e;--acc:#4fd1a5;--card:#14221d}}
+:root[data-theme="dark"]{--bg:#0e1814;--ink:#e5eee9;--mute:#97aaa2;--line:#24352e;--acc:#4fd1a5;--card:#14221d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 "Public Sans",system-ui,sans-serif}
+a{color:var(--acc)}
+a:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.wrap{max-width:740px;margin:0 auto;padding:40px 22px 80px}
+nav{display:flex;justify-content:space-between;margin-bottom:72px;font-weight:500}
+nav a{color:var(--ink);text-decoration:none;margin-left:18px}nav a:first-child{margin:0}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;line-height:1.12;margin:0;font-weight:600}
+h1{font-size:clamp(2.6rem,9vw,4.4rem);letter-spacing:-.02em}
+.lede{font-size:1.2rem;color:var(--mute);max-width:33em;margin:20px 0 0}
+h2{font-size:1.7rem;margin:72px 0 10px}
+.row{display:block;text-decoration:none;color:inherit;border-top:1px solid var(--line);padding:24px 0}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row h3{font-size:1.5rem}
+.row .out{color:var(--acc);font-weight:500;margin:6px 0 4px}
+.row:hover h3,.row:focus-visible h3{text-decoration:underline;text-underline-offset:5px}
+.row p{margin:0 0 8px;color:var(--mute)}
+.tags span{display:inline-block;border:1px solid var(--line);border-radius:4px;padding:0 8px;margin:0 6px 6px 0;background:var(--card);font-size:.88rem;color:var(--mute)}
+.list{list-style:none;padding:0;margin:0}
+.list li{border-top:1px solid var(--line);padding:12px 0}
+.list b{font-weight:500}
+.list span{display:block;color:var(--mute)}
+.back{display:inline-block;margin-bottom:36px;text-decoration:none;font-weight:500}
+.page h1{font-size:clamp(2.1rem,7vw,3.2rem)}
+.page h2{font-size:1.35rem;margin:42px 0 6px}
+.page ul{padding-left:1.2em}.page li{margin:6px 0}
+.big{font-family:Newsreader,Georgia,serif;font-size:1.5rem;color:var(--acc);margin:6px 0}
+footer{margin-top:72px;color:var(--mute);font-size:.92rem}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+/* ====== EDIT HERE ====== */
+var ME={
+  name:"Anjuman",
+  role:"Data Analyst, JPMorganChase",
+  intro:"I turn customer and marketing data into decisions: who to target, where to spend, and which step in a journey is losing people. 2+ years in financial analytics, working with risk, cards and marketing teams.",
+  email:"anjuman.2002.official@gmail.com",
+  github:"https://github.com/mellow-d",
+  skills:[["Analysis","Segmentation, attribution, funnel analysis, regression, forecasting"],["Tools","Python, SQL, PySpark, Databricks, Streamlit"],["Working with","Risk, cards and marketing stakeholders"]],
+  more:[["D&A Shark Tank 2026","Finalist among 150+ submissions for Digital Call Smart Assist, a customer-service concept."],["AI Hackathon, Q2 2025","Top 5 of 350 entries for an AI-based PII detection and protection system."],["Innovation Week 2026","Co-hosted a two-week, org-wide technology event with 2,000+ attendees."]],
+  edu:"B.E. Computer Science, RV College of Engineering, Bangalore. CGPA 8.56/10. 2020–2024.",
+  interests:"Macroeconomics, especially bond markets. Chess, peak rating 1850."
+};
+var PROJECTS=[
+{id:"aml-kyc",title:"AML/KYC threshold optimization",team:"Risk",outcome:"Grouped all JPMorganChase customers, individuals and entities, into 13 types",short:"Segmenting a very large customer base so risk thresholds can reflect how different customers behave.",
+ stack:["Python","PySpark","Databricks","GMM","K-Means","Decision trees"],
+ sections:[
+  ["The question","Customers differ a lot in how they transact, so one threshold for everyone is a blunt tool. Which distinct groups exist, and how risky is each?"],
+  ["What I did",["Segmented all JPMorganChase customers, both individuals and entities, into 13 types using Gaussian Mixture Models and K-Means clustering.","Built decision trees on top, so the rules behind each risk assessment can be read and explained.","Moved the pipeline into production on PySpark and Databricks."]],
+  ["Outcome","The pipeline runs in production and reaches about 70% accuracy."],
+  ["Skills used","Clustering, interpretable modelling, large-scale data engineering, translating model output into rules a reviewer can follow."]
+ ]},
+{id:"winback",title:"Customer-centric winback",team:"Cards",outcome:"Identified the top 1/6 of Chase card customers, each worth up to $50 NPV if converted",short:"Deciding which lapsed card customers are worth a winback effort.",
+ stack:["Python","Supervised learning","Decision trees"],
+ sections:[
+  ["The question","Winback offers cost money. Which customers are most likely to respond, so the effort goes where it pays back?"],
+  ["What I did",["Trained supervised models on transaction and bureau data to rank the Chase card customer base.","Narrowed it to the 1/6 of customers with the highest potential.","Built hierarchical decision trees to map customer journeys and show what separates each group."]],
+  ["Outcome","Each converted customer is worth up to $50 in net present value (NPV), so the total value is the number of customers converted multiplied by that figure."],
+  ["Skills used","Predictive modelling, audience sizing, customer journey mapping, linking model output to revenue."]
+ ]},
+{id:"media-spend",title:"Media spend optimization",team:"Marketing",outcome:"R² of 0.90 against 0.74 for the XGBoost benchmark",short:"A decision-support app that helps marketers split budget across ad platforms.",
+ stack:["Python","Streamlit","Polynomial regression","XGBoost"],
+ sections:[
+  ["The question","With a fixed budget across Pinterest, Snapchat, Facebook and LinkedIn, how much should each platform get?"],
+  ["What I did",["Built a Streamlit app that recommends a budget allocation using polynomial regression.","Benchmarked it against XGBoost to check that the simpler model was not giving up accuracy."]],
+  ["Outcome","The regression model scored an R² of 0.90, against 0.74 from the XGBoost benchmark."],
+  ["Skills used","Regression, model comparison, building a tool non-technical users can run themselves."]
+ ]},
+{id:"attribution",title:"Customer touchpoint attribution",team:"Marketing",outcome:"Quantified each channel's contribution across the journey",short:"Working out which channels deserve credit when a customer sees several before converting.",
+ stack:["Python","Markov chains"],
+ sections:[
+  ["The question","Customers meet a brand through branches, digital ads and email before they convert. Which of those actually moves them?"],
+  ["What I did",["Modelled multi-touchpoint sequences with a Markov chain attribution model.","Built a dynamic Python model comparing branch visits, digital ad impressions and email campaigns for a premium credit card product."]],
+  ["Outcome","A measured contribution for each channel, so cross-channel performance can be compared on one basis."],
+  ["Skills used","Attribution modelling, sequence analysis, cross-channel measurement."]
+ ]},
+{id:"onboarding",title:"Mobile onboarding optimization",team:"Marketing",outcome:"Found a 7% bottleneck reduction opportunity",short:"Finding where people drop out of the in-app onboarding flow.",
+ stack:["Funnel analysis","SQL","Python"],
+ sections:[
+  ["The question","Where in the onboarding flow do people give up, and what would keep them going?"],
+  ["What I did",["Analysed conversion funnel drop-offs step by step.","Recommended an in-app onboarding approach for the existing flow."]],
+  ["Outcome","Identified a 7% bottleneck reduction opportunity."],
+  ["Skills used","Funnel analysis, recommendation writing, working within an existing product flow."]
+ ]},
+{id:"persona-forge",title:"Persona Forge",team:"Personal project",outcome:"In progress",short:"An LLM-powered tool that turns raw customer data into usable personas.",
+ stack:["Python","LLMs","Prompt engineering"],
+ sections:[
+  ["The question","Customer personas are slow to write by hand. Can an LLM draft useful ones straight from raw data?"],
+  ["What I am building",["A Python tool that uses LLMs and prompt engineering to generate customer personas.","An evaluation framework to check persona quality. This part is still being built."]],
+  ["Status","Work in progress."]
+ ]}
+];
+/* ====== end of editable section ====== */
+var app=document.getElementById("app");
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function tags(a){return '<div class="tags">'+a.map(function(t){return "<span>"+esc(t)+"</span>"}).join("")+"</div>"}
+function pairs(a){return '<ul class="list">'+a.map(function(f){return '<li><b>'+esc(f[0])+'</b><span>'+esc(f[1])+'</span></li>'}).join("")+'</ul>'}
+function home(){
+  document.title=ME.name+" — "+ME.role;
+  app.innerHTML='<nav><a href="#/">'+esc(ME.name)+'</a><span><a href="mailto:'+ME.email+'">Email</a><a href="'+ME.github+'" target="_blank" rel="noopener">GitHub</a></span></nav>'+
+  '<h1>'+esc(ME.name)+'</h1><p class="lede">'+esc(ME.role)+'. '+esc(ME.intro)+'</p>'+
+  '<h2>Selected work</h2><div>'+PROJECTS.map(function(p){return '<a class="row" href="#/project/'+p.id+'"><h3>'+esc(p.title)+'</h3><div class="out">'+esc(p.outcome)+'</div><p>'+esc(p.short)+'</p>'+tags([p.team].concat(p.stack))+'</a>'}).join("")+'</div>'+
+  '<h2>Skills</h2>'+pairs(ME.skills)+'<h2>Recognition</h2>'+pairs(ME.more)+
+  '<h2>Education</h2><p>'+esc(ME.edu)+'</p><h2>Outside work</h2><p>'+esc(ME.interests)+'</p>'+
+  '<footer>Figures describe my own contribution and are from my resume. Get in touch at '+esc(ME.email)+'.</footer>';
+  window.scrollTo(0,0);
+}
+function project(id){
+  var p=PROJECTS.filter(function(x){return x.id===id})[0];
+  if(!p){location.hash="#/";return}
+  document.title=p.title+" — "+ME.name;
+  var body=p.sections.map(function(s){
+    var c=Array.isArray(s[1])?"<ul>"+s[1].map(function(i){return "<li>"+esc(i)+"</li>"}).join("")+"</ul>":"<p>"+esc(s[1])+"</p>";
+    return "<h2>"+esc(s[0])+"</h2>"+c}).join("");
+  app.innerHTML='<div class="page"><a class="back" href="#/">Back to all work</a><h1>'+esc(p.title)+'</h1><p class="big">'+esc(p.outcome)+'</p><p class="lede" style="margin-top:8px">'+esc(p.short)+'</p><div style="margin-top:18px">'+tags([p.team].concat(p.stack))+'</div>'+body+'</div>';
+  window.scrollTo(0,0);
+}
+function route(){var m=location.hash.match(/^#\/project\/([\w-]+)/);m?project(m[1]):home()}
+window.addEventListener("hashchange",route);route();
+</script>
+</body>
+</html>
